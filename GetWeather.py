@@ -71,7 +71,5 @@ def GetCurrentWheater(city):
 		weatherToday = cache
 		logging.debug('Got weather from cache file')
 		return weatherToday
-
-print GetCurrentWheater("Odessa")
-
-
+if __name__ == "__main__":
+	print GetCurrentWheater("Odessa")
