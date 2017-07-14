@@ -6,13 +6,16 @@ logging.basicConfig(level=logging.DEBUG, format=' %(asctime)s - %(levelname)s - 
 logging.debug('Start of program')
 
 def file_age_in_seconds(pathname):
-    return time.time() - os.stat(pathname)[stat.ST_MTIME]
+	if os.path.isfile(pathname):
+   		return time.time() - os.stat(pathname)[stat.ST_MTIME]
+   	else:
+   		return 1
 
 def GetCityID(city):
 	with open("./citiesdatabase/citylist.json") as f:
 		data = json.load(f)
 		for key in data:
-			if key["name"] == city and key["cc"] == "UA":
+			if key["name"] == city:
 				return key["id"]
 def GetFromCache(cityid, datafilename):
 	try:
@@ -71,5 +74,8 @@ def GetCurrentWheater(city):
 		weatherToday = cache
 		logging.debug('Got weather from cache file')
 		return weatherToday
+
 if __name__ == "__main__":
-	print GetCurrentWheater("Odessa")
+	# Just as test run Odessa weather if module run executed directly
+	data = GetCurrentWheater("Odessa")
+	print data

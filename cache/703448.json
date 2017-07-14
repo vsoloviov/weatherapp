@@ -1,0 +1,1 @@
+{"clouds": 64, "temp": {"min": 12.98, "max": 16.57, "eve": 16.57, "morn": 14, "night": 12.98, "day": 14}, "humidity": 75, "pressure": 1008.22, "weather": [{"main": "Clouds", "id": 803, "icon": "04d", "description": "broken clouds"}], "dt": 1500026400, "speed": 9.17, "deg": 298}

@@ -8,7 +8,10 @@ logging.basicConfig(level=logging.DEBUG, format=' %(asctime)s - %(levelname)s - 
 logging.debug('Start of program')
 
 def file_age_in_seconds(pathname):
-    return time.time() - os.stat(pathname)[stat.ST_MTIME]
+	if os.path.isfile(pathname):
+   		return time.time() - os.stat(pathname)[stat.ST_MTIME]
+   	else:
+   		return 1
 
 def DownloadNewDBFile(cityinfofile):
 	logging.debug('File  ' + cityinfofile + ' is ' + str(file_age_in_seconds(cityinfofile)) + 'old. Downloading new one')

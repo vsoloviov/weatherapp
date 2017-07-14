@@ -1,1 +1,1 @@
-{"clouds": 68, "temp": {"min": 19.86, "max": 24.82, "eve": 24.5, "morn": 24, "night": 19.86, "day": 24.08}, "rain": 9.34, "humidity": 92, "pressure": 1021.04, "weather": [{"main": "Rain", "id": 501, "icon": "10d", "description": "moderate rain"}], "dt": 1499940000, "speed": 4.28, "deg": 192}
+{"clouds": 20, "temp": {"min": 20.28, "max": 25.32, "eve": 25.32, "morn": 24, "night": 20.28, "day": 24}, "humidity": 100, "pressure": 1024.18, "weather": [{"main": "Clouds", "id": 801, "icon": "02d", "description": "few clouds"}], "dt": 1500026400, "speed": 8.07, "deg": 333}

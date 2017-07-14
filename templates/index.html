@@ -1,0 +1,277 @@
+  
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WeatherApp</title>
+    <meta charset="us-ascii">
+
+    <style type="text/css">
+      body {
+        font: 300 112.5%/1.5em "Helvetica", "Arial", sans-serif;
+        margin: 3em 3em 6em;
+        padding: 0;
+        background: #efefef;
+
+      }
+
+      h1 {
+        font-size: 3em;
+        line-height: 1em;
+        text-align: center;
+        margin: 0.5em 0;
+      }
+      p {
+        margin: 1.5em 0;
+      }
+      figure {
+        margin: 3em auto;
+        width: 368px;
+        height: 152px;
+      }
+      canvas {
+        display: block;
+        float: center;
+        margin-left: 30%;
+        margin-top: 5%;
+      }
+      pre {
+        font: 77.8%/1.5em "Lucida Sans Typewriter", "Lucida Console", "Monaco", "Bitstream Vera Sans Mono", monospace;
+        margin: 3.375em 1.6875em;
+      }
+      a, pre span.comment {
+        color: royalblue;
+      }
+      a:visited, pre span.constant {
+        color: indianred;
+      }
+
+      .tg  {border-collapse:collapse;border-spacing:0;border-style:dotted;}
+      .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-width:1px;overflow:hidden;word-break:normal;}
+      .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:dotted;border-width:1px;overflow:hidden;word-break:normal;}
+      .tg .tg-yw4l{vertical-align:top}
+
+
+      .form-wrapper {
+          width: 450px;
+          padding: 15px;
+          margin: 80px auto 50px auto;
+          background: #444;
+          background: rgba(0,0,0,.2);
+          -moz-border-radius: 10px;
+          -webkit-border-radius: 10px;
+          border-radius: 10px;
+          -moz-box-shadow: 0 1px 1px rgba(0,0,0,.4) inset, 0 1px 0 rgba(255,255,255,.2);
+          -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.4) inset, 0 1px 0 rgba(255,255,255,.2);
+          box-shadow: 0 1px 1px rgba(0,0,0,.4) <title>WeatherApp</title>
+inset, 0 1px 0 rgba(255,255,255,.2);
+      }
+      
+      .form-wrapper input {
+          width: 330px;
+          height: 20px;
+          padding: 10px 5px;
+          float: left;    
+          font: bold 15px 'lucida sans', 'trebuchet MS', 'Tahoma';
+          border: 0;
+          background: #eee;
+          -moz-border-radius: 3px 0 0 3px;
+          -webkit-border-radius: 3px 0 0 3px;
+          border-radius: 3px 0 0 3px;      
+      }
+      
+      .form-wrapper input:focus {
+          outline: 0;
+          background: #fff;
+          -moz-box-shadow: 0 0 2px rgba(0,0,0,.8) inset;
+          -webkit-box-shadow: 0 0 2px rgba(0,0,0,.8) inset;
+          box-shadow: 0 0 2px rgba(0,0,0,.8) inset;
+      }
+      
+      .form-wrapper input::-webkit-input-placeholder {
+         color: #999;
+         font-weight: normal;
+         font-style: italic;
+      }
+      
+      .form-wrapper input:-moz-placeholder {
+          color: #999;
+          font-weight: normal;
+          font-style: italic;
+      }
+      
+      .form-wrapper input:-ms-input-placeholder {
+          color: #999;
+          font-weight: normal;
+          font-style: italic;
+      }    
+      
+      .form-wrapper button {
+      overflow: visible;
+          position: relative;
+          float: right;
+          border: 0;
+          padding: 0;
+          cursor: pointer;
+          height: 40px;
+          width: 110px;
+          font: bold 15px/40px 'lucida sans', 'trebuchet MS', 'Tahoma';
+          color: #fff;
+          text-transform: uppercase;
+          background: #d83c3c;
+          -moz-border-radius: 0 3px 3px 0;
+          -webkit-border-radius: 0 3px 3px 0;
+          border-radius: 0 3px 3px 0;      
+          text-shadow: 0 -1px 0 rgba(0, 0 ,0, .3);
+      }   
+        
+      .form-wrapper button:hover{   
+          background: #e54040;
+      } 
+        
+      .form-wrapper button:active,
+      .form-wrapper button:focus{   
+          background: #c42f2f;    
+      }
+      
+      .form-wrapper button:before {
+          content: '';
+          position: absolute;
+          border-width: 8px 8px 8px 0;
+          border-style: solid solid solid none;
+          border-color: transparent #d83c3c transparent;
+          top: 12px;
+          left: -6px;
+      }
+      
+      .form-wrapper button:hover:before{
+          border-right-color: #e54040;
+      }
+      
+      .form-wrapper button:focus:before{
+          border-right-color: #c42f2f;
+      }    
+      
+      .form-wrapper button::-moz-focus-inner {
+          border: 0;
+          padding: 0;
+      }
+
+      .cf:before, .cf:after{
+        content:"";
+        display:table;
+      }
+      
+      .cf:after{
+        clear:both;
+      }
+
+      .cf{
+        zoom:1;
+      }
+
+
+    </style>
+  </head>
+
+  <body>
+      <h1>Your Weather today in {{default_city}}</h1>
+  {% if "few" in weather_description and "n" in dayornight %}
+
+      <figure class="icons">
+        <canvas id="partly-cloudy-night" width="128" height="128">
+        </canvas>
+      </figure>
+  {% elif "few" in weather_description and "d" in dayornight %}
+
+      <figure class="icons">
+        <canvas id="partly-cloudy-day" width="128" height="128">
+        </canvas>
+      </figure>
+  {% elif "clear" in weather_description and "n" in dayornight %}
+
+      <figure class="icons">
+        <canvas id="clear-night" width="128" height="128">
+        </canvas>
+      </figure>
+  {% elif "clear" in weather_description and "d" in dayornight %}
+
+      <figure class="icons">
+        <canvas id="clear-day" width="128" height="128">
+        </canvas>
+      </figure>
+  {% elif "clouds" in weather_description %}
+
+      <figure class="icons">
+        <canvas id="cloudy" width="128" height="128">
+        </canvas>
+      </figure>
+
+  {% elif "rain" in weather_description %}
+
+      <figure class="icons">
+        <canvas id="rain" width="128" height="128">
+        </canvas>
+      </figure>
+
+  {% elif "mist" in weather_description %}
+
+      <figure class="icons">
+        <canvas id="fog" width="128" height="128">
+        </canvas>
+      </figure>
+
+  {% endif %}
+    <script src="static/skycons.js"></script>
+
+    <script>
+      var icons = new Skycons(),
+          list  = [
+            "clear-day", "clear-night", "partly-cloudy-day",
+            "partly-cloudy-night", "cloudy", "rain", "sleet", "snow", "wind",
+            "fog"
+          ],
+          i;
+      for(i = list.length; i--; )
+        icons.set(list[i], list[i]);
+      icons.play();
+    </script>
+    <div id="tempelement"> 
+      <center>
+        <table width="1000px">
+            <th width="333"> <font size="7"> {{usertime}} </font></th>
+            <th width="300"><font size="7"> {{eve_temp}}&#8451 </font></th>
+            <th><font size="7">{{weather_description}}</font></th>
+        </table>
+      </center>
+    </div>
+    <p>&#160<p>&#160<p>
+    <div id="detailselement"> 
+      <center>
+
+        <table class="tg" width="300px" bordercolor="#D3D3D3">
+          <tr>
+            <td class="tg-yw4l">Cloudness, %</td>
+            <td class="tg-yw4l">{{clouds}}</td>
+          </tr>
+          <tr>
+            <td class="tg-yw4l">Wind speed, m/s</td>
+            <td class="tg-yw4l">{{speed}}</td>
+          </tr>
+          <tr>
+            <td class="tg-yw4l">Humidity, %</td>
+            <td class="tg-yw4l">{{humidity}}</td>
+          </tr>
+          <tr>
+            <td class="tg-yw4l">Pressure, hPa</td>
+            <td class="tg-yw4l">{{pressure}}</td>
+          </tr>
+        </table>
+      <form action = "http://localhost:5000/" method = "POST" class="form-wrapper cf">
+          <input type="text" placeholder="Find your city..." required name = "Name">
+          <button type="submit">Search</button>
+
+      </form>
+    </center>
+    </div>
+  </body>
+</html>

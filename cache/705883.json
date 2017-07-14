@@ -1,0 +1,1 @@
+{"clouds": 0, "temp": {"min": 16.5, "max": 25.76, "eve": 25.03, "morn": 25, "night": 16.5, "day": 25}, "humidity": 83, "pressure": 1023.86, "weather": [{"main": "Clear", "id": 800, "icon": "01d", "description": "sky is clear"}], "dt": 1500026400, "speed": 7.17, "deg": 336}
